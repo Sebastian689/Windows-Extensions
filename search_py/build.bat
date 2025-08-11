@@ -1,0 +1,1 @@
+nuitka --onefile search.py
