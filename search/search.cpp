@@ -59,7 +59,8 @@ struct filescore {
     size_t score;
 };
 
-filescore candidates[100000];
+#define MAX_CANDIDATES 10000
+filescore candidates[MAX_CANDIDATES];
 int counter = 0;
 
 DWORD SearchFolder(const char *folder, const char *file, const size_t length)
@@ -102,11 +103,11 @@ DWORD SearchFolder(const char *folder, const char *file, const size_t length)
                 size_t score = lehveinstein(file, length, FindFileData.cFileName, length_b);
                 if (score < 5)
                 {
-                    if (counter < 1024) 
+                    if (counter < MAX_CANDIDATES) 
                     {
                         filescore candidate = {};
                         strncpy_s(candidate.filename, FindFileData.cFileName, sizeof(candidate.filename) - 1);
-                        candidate.filename[sizeof(candidate.filename) - 1] = '\0';
+                        // candidate.filename[sizeof(candidate.filename) - 1] = '\0';
                         candidate.score = score;
 
                         candidates[counter] = candidate;
